@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jul 22 11:07:52 2017
+
+@author: david
+"""
+
+import tkinter as tk
+from tkinter import ttk
+from tkinter.messagebox import showinfo
+
+def utah_calc():
+     import requests
+     import json
+        
+     send_url = 'http://freegeoip.net/json'
+     r = requests.get(send_url)
+     j = json.loads(r.text)
+     lat = j['latitude']
+     lon = j['longitude']
+        
+     from haversine import haversine
+        
+     current_location = (lat,lon)
+     disaster_utah = (37.69723, -112.842965)
+     dist_utah = haversine(current_location, disaster_utah)
+     dist_utah = str(round(dist_utah))
+     return dist_utah
+ 
+def turkey_calc():
+     import requests
+     import json
+        
+     send_url = 'http://freegeoip.net/json'
+     r = requests.get(send_url)
+     j = json.loads(r.text)
+     lat = j['latitude']
+     lon = j['longitude']
+        
+     from haversine import haversine
+        
+     current_location = (lat,lon)
+     disaster_turkey = (37.034407, 27.43054)
+     dist_turkey = haversine(current_location, disaster_turkey)
+     dist_turkey = str(round(dist_turkey))
+     return dist_turkey
+
+def ecuador_calc():
+    import requests
+    import json
+        
+    send_url = 'http://freegeoip.net/json'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    lat = j['latitude']
+    lon = j['longitude']
+        
+    from haversine import haversine
+       
+    current_location = (lat,lon)
+    disaster_ecuador = (0.968179, -79.65172)
+    dist_ecuador = haversine(current_location, disaster_ecuador)
+    dist_ecuador = str(round(dist_ecuador))
+    return dist_ecuador
+
+def italy_calc():
+    import requests
+    import json
+        
+    send_url = 'http://freegeoip.net/json'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    lat = j['latitude']
+    lon = j['longitude']
+        
+    from haversine import haversine
+       
+    current_location = (lat,lon)
+    disaster_italy = (42.6611431, 13.69866)
+    dist_italy = haversine(current_location, disaster_italy)
+    dist_italy = str(round(dist_italy))
+    return dist_italy
+
+def panguna_calc():
+    import requests
+    import json
+        
+    send_url = 'http://freegeoip.net/json'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    lat = j['latitude']
+    lon = j['longitude']
+        
+    from haversine import haversine
+       
+    current_location = (lat,lon)
+    disaster_guinea = (-6.308009, 155.477221)
+    dist_guinea = haversine(current_location, disaster_guinea)
+    dist_guinea = str(round(dist_guinea))
+    return dist_guinea
+    
+import webbrowser
+def open_browser():
+    webbrowser.open_new("http://www.paypal.com")
+    
+def open_volunteer_page():
+    webbrowser.open_new("http://volunteer1ng.comacorner.com/")
+
+def popup_Utah():
+    utah_result = utah_calc() 
+    showinfo("Window", "You are " + utah_result + " miles from the Brian Head, UT wildfire. Nearest Volunteer1NG Center: 3 Miles Away")
+    b = ttk.Button(text="Volunteer", command=open_volunteer_page)
+    b.grid(row=1, column=0)
+    b = ttk.Button(text="Donate", command = open_browser)
+    b.grid(row=2, column=0)
+    
+
+def popup_Turkey():
+    dist_turkey = turkey_calc()
+    showinfo("Window", "You are " + dist_turkey + " miles from the Bodrum, Turkey tsunami. Nearest Volunteer1NG Center: 2.8 Miles Away")
+    b = ttk.Button(text="Volunteer", command = open_volunteer_page)
+    b.grid(row=1, column=0)
+    b = ttk.Button(text="Donate", command=open_browser)
+    b.grid(row=2, column=0)
+    
+def popup_Ecuador():
+    dist_ecaudor = ecuador_calc()
+    showinfo("Window", "You are " + dist_ecaudor + " miles from the Esmeralda, Ecuador earthquake. Nearest Volunteer1NG Center: 4.2 Miles Away")
+    b = ttk.Button(text="Volunteer", command=open_volunteer_page)
+    b.grid(row=1, column=0)
+    b = ttk.Button(text="Donate", command=open_browser)
+    b.grid(row=2, column=0)
+    
+def popup_Italy():
+    dist_italy = italy_calc()
+    showinfo("Window", "You are " + dist_italy + " miles from the Teramo, Italy earthquake. Nearest Volunteer1NG Center: 2.3 Miles Away")
+    b = ttk.Button(text="Volunteer", command=open_volunteer_page)
+    b.grid(row=1, column=0)
+    b = ttk.Button(text="Donate", command=open_browser)
+    b.grid(row=2, column=0)
+    
+def popup_Papa_New_Guinea():
+    dist_guinea = panguna_calc()
+    showinfo("Window", "You are " + dist_guinea + " miles from the Panguna, Papua New Guinea earthquake. Nearest Volunteer1NG Center: 5.1 Miles Away")
+    b = ttk.Button(text="Volunteer", command=open_volunteer_page)
+    b.grid(row=1, column=0)
+    b = ttk.Button(text="Donate", command=open_browser)
+    b.grid(row=2, column=0)
+
+class Application(ttk.Frame):
+
+    def __init__(self, master):
+        ttk.Frame.__init__(self, master)
+        self.pack()
+        
+        
+        utah_calc()
+        self.button_Utah = ttk.Button(self, text="Utah", command=popup_Utah)
+        self.button_Utah.pack()
+
+        self.button_Turkey = ttk.Button(self, text="Turkey", command=popup_Turkey)
+        self.button_Turkey.pack()
+        
+        self.button_Ecuador = ttk.Button(self, text="Ecuador", command=popup_Ecuador)
+        self.button_Ecuador.pack()
+        
+        self.button_Italy = ttk.Button(self, text="Italy", command=popup_Italy)
+        self.button_Italy.pack()
+        
+        self.button_Papa_New_Guinea= ttk.Button(self, text="Papa New Guinea", command=popup_Papa_New_Guinea)
+        self.button_Papa_New_Guinea.pack()
+
+root = tk.Tk()
+
+app = Application(root)
+
+root.mainloop()
